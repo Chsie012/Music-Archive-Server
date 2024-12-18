@@ -67,6 +67,24 @@ const server = http.createServer((req, res) => {
 
     /* ========================== ROUTE HANDLERS ========================== */
 
+    if (req.method === "GET" && req.url === "/") {
+      res.statusCode = 200;
+      res.setHeader("Content-Type", "application/json");
+      return res.end(JSON.stringify({
+        message: "Welcome to the Music Library API",
+        endpoints: [
+          { method: "GET", path: "/albums", description: "Retrieve all albums" },
+          { method: "GET", path: "/albums/:albumId", description: "Retrieve a specific album by ID" },
+          { method: "POST", path: "/albums", description: "Add a new album" },
+          { method: "GET", path: "/songs/:songId", description: "Retrieve a specific song by ID" },
+          { method: "POST", path: "/albums/:albumId/songs", description: "Add a song to an album" },
+          { method: "PUT", path: "/songs/:songId", description: "Update a specific song" },
+          { method: "DELETE", path: "/songs/:songId", description: "Delete a specific song" }
+        ]
+      }));
+    }
+
+    
     if (req.method === "GET" && req.url === "/artists") {
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
